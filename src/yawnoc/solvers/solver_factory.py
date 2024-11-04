@@ -1,16 +1,21 @@
 from enum import Enum
+from typing import Callable
 
-from yawnoc.solvers import brute_force_search
-from yawnoc.solvers import pattern_search
+import numpy as np
+
+from yawnoc.solvers import gradient_descent, pattern_search
 
 
 class SolverType(Enum):
-    BRUTE = 1
+    GRADIENT_DESCENT = 1
     PATTERN = 2
 
-def get_backward_fn(solver_type: SolverType):
-    if solver_type is SolverType.BRUTE:
-        return brute_force_search.backward
+
+def get_backward_fn(
+    solver_type: SolverType
+) -> Callable[[np.ndarray], np.ndarray]:
+    if solver_type is SolverType.GRADIENT_DESCENT:
+        return gradient_descent.backward
     if solver_type is SolverType.PATTERN:
         return pattern_search.backward
     return None

@@ -1,6 +1,7 @@
 import itertools
 import math
 from typing import Tuple
+
 import numpy as np
 from tqdm import tqdm
 
