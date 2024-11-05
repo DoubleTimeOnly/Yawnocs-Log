@@ -1,0 +1,3 @@
+_target_: yawnoc.deep_solver.solver_module.LitSolver
+board_size: ${board_size}
+inter_features: 256

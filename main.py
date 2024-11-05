@@ -33,11 +33,11 @@ def run(board: np.ndarray, backward_fn: Callable[[np.ndarray], np.ndarray]) -> N
 
 
 def main():
-    board_size = (5, 5)
+    board_size = (10, 10)
     seed = SEEDS["nice-1+1"]
     board = init_board(seed=seed, board_size=board_size)
 
-    backward_fn = get_backward_fn(SolverType.GRADIENT_DESCENT)
+    backward_fn = get_backward_fn(SolverType.DEEP)
     run(board=board, backward_fn=backward_fn)
 
 

@@ -13,3 +13,12 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[project.optional-dependencies]
+# also install torch itself
+# pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+
+nn = [
+    "lightning",
+    "hydra-core",
+]
