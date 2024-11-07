@@ -1,0 +1,4 @@
+_target_: yawnoc.deep_solver.solver_module.LitEstimator
+board_size: ${board_size}
+inter_features: 100
+series_length: 10

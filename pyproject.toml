@@ -21,4 +21,5 @@ where = ["src"]
 nn = [
     "lightning",
     "hydra-core",
+    "tensorboard",
 ]

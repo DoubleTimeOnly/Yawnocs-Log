@@ -1,0 +1,44 @@
+train:
+  dataset:
+    _target_: yawnoc.deep_solver.dataset.ConwayDataset
+    board_size:
+    - 5
+    - 5
+    length: 32
+  dataloader:
+    _target_: torch.utils.data.DataLoader
+    batch_size: 32
+    shuffle: true
+    pin_memory: true
+    num_workers: 0
+    persistent_workers: false
+test:
+  dataset:
+    _target_: yawnoc.deep_solver.dataset.ConwayDataset
+    board_size:
+    - 5
+    - 5
+    length: 128
+  dataloader:
+    _target_: torch.utils.data.DataLoader
+    batch_size: 32
+    shuffle: false
+    pin_memory: false
+    num_workers: 0
+    persistent_workers: false
+trainer:
+  _target_: lightning.Trainer
+  max_epochs: -1
+  max_steps: 1000
+lit_model:
+  _target_: yawnoc.deep_solver.solver_module.LitEstimator
+  board_size:
+  - 5
+  - 5
+  inter_features: 100
+  series_length: 10
+board_size:
+- 5
+- 5
+batch_size: 32
+experiment_name: train_deep_estimator

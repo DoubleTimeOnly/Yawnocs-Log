@@ -4,7 +4,8 @@ defaults:
 - dataloader@train.dataloader: default_train
 - dataloader@test.dataloader: default_test
 - trainer: default_trainer
-- lit_model: lit_solver
+- lit_model: lit_estimator
 
 board_size: [10, 10]
-batch_size: 256
+batch_size: 32
+experiment_name: "train_deep_estimator"

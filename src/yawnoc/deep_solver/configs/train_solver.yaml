@@ -1,0 +1,11 @@
+defaults:
+- dataset@train.dataset: default_train
+- dataset@test.dataset: default_test
+- dataloader@train.dataloader: default_train
+- dataloader@test.dataloader: default_test
+- trainer: default_trainer
+- lit_model: lit_solver
+
+board_size: [10, 10]
+batch_size: 256
+experiment_name: "train_deep_solver"

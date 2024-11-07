@@ -2,7 +2,7 @@ from pathlib import Path
 
 import hydra
 import lightning as L
-from lightning.pytorch.loggers import CSVLogger
+from lightning.pytorch.loggers import CSVLogger, TensorBoardLogger
 from omegaconf import OmegaConf
 from torch.utils.data import DataLoader
 
@@ -22,15 +22,17 @@ def train(cfg: OmegaConf):
     # instantiate objects from hydra configs
     train_dataloader = get_dataloader_from_cfg(cfg.train)
     test_dataloader = get_dataloader_from_cfg(cfg.test)
+    save_dir = r"C:\Users\Victor\Documents\Projects\conway_game\experiment_results"
     loggers = [
-        CSVLogger(save_dir=r"C:\Users\Victor\Documents\Projects\conway_game\experiment_results", name="test")
+        CSVLogger(save_dir=save_dir, name=cfg.experiment_name),
+        TensorBoardLogger(save_dir=save_dir, name=cfg.experiment_name, default_hp_metric=False)
     ]
-    model = hydra.utils.instantiate(cfg.lit_model)
+    model = hydra.utils.instantiate(cfg.lit_model, _convert_="partial")
     trainer = hydra.utils.instantiate(cfg.trainer, logger=loggers)
     
     # save configuration with rest of the experiment
     log_dir = Path(loggers[0].log_dir)
-    log_dir.mkdir(exist_ok=True)
+    log_dir.mkdir(exist_ok=True, parents=True)
     with open(log_dir / "config.yaml", "w") as f:
         OmegaConf.save(cfg, f, resolve=True)
 
@@ -57,8 +59,13 @@ def test():
 
 if __name__ == "__main__":
     cfg = get_hydra_cfg(
-        config="train.yaml",
+        config="train_estimator.yaml",
         overrides=[],
     )
+    cfg.board_size = (5, 5)
+    cfg.batch_size = 64
+    cfg.lit_model.inter_features = 256
+    cfg.lit_model.series_length = (2, 10)
+    cfg.trainer.max_steps = 10000
     train(cfg=cfg)
     # test()

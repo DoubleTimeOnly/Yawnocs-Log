@@ -21,7 +21,8 @@ def forward(board: np.ndarray) -> np.ndarray:
     return new_board
 
 
-def batch_forward(board: Tensor, device=torch.device("cpu")) -> Tensor:
+def batch_forward(board: Tensor) -> Tensor:
+    device = board.device
     # board shape: batch_size, row, col
     weight = torch.tensor([
         [1, 1, 1],
@@ -35,7 +36,7 @@ def batch_forward(board: Tensor, device=torch.device("cpu")) -> Tensor:
         padding="same",
         padding_mode="circular",
         bias=False,
-        device=device
+        device=device,
     )
     conv.weight = torch.nn.Parameter(weight.to(device))
 
