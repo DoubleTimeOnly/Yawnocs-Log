@@ -1,0 +1,3 @@
+_target_: yawnoc.deep_solver.dataset.ConwayDataset
+board_size: ${board_size}
+length: 128
